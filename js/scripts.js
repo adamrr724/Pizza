@@ -3,12 +3,14 @@ function Game() {
   this.hiddenWord = []; //this.genHiddenWord();
   this.bodyPartCount = 0;
 
+  this.randomWord = this.genRandWord();
+  this.hiddenWord = this.genHiddenWord();
+
 }
 
 Game.prototype.genRandWord = function () {
   var words = ["rooster", "cow", "bobsled", "why", "qat", "saucer", "gnome", "potato", "summer", "staple"];
     var randomWord = words[Math.floor(Math.random() * 10)];
-    console.log("Hi from genRandWord " + randomWord);
   return randomWord;
 };
 
@@ -16,7 +18,6 @@ Game.prototype.genHiddenWord = function () {
   for(var i = 0; i < this.randomWord.length; i++) {
     this.hiddenWord.push("-");
   };
-  console.log("Hi from genHiddenWord func " + this.hiddenWord);
   return this.hiddenWord;
 };
 
@@ -48,25 +49,25 @@ Game.prototype.gameOverCheck = function (bodyPartCount) {
 };
 
 
-// $(function() {
-//
-  // var hangman = new Game();
-//   console.log(hangman.hiddenWord);
-  // $("#display-hidden-word").append(hangman.hiddenWord);
-//
-//
+$(function() {
+
+  var hangman = new Game();
+  console.log("hello from the game " + hangman.randomWord + " " + hangman.hiddenWord);
+  $("#display-hidden-word").append(hangman.hiddenWord);
+
+
 //   $("form#user-input").submit(function(event) {
 //     event.preventDefault();
 //
 //     var userLetter = $(this).find("input#letter-input");
 //
-//     while(!hangman.gameOverCheck)
+//     while(!hangman.gameOverCheck) {
 //      hangman.checkword(userLetter)
 //      if(hangman.checkWord()) {
 //        hangman.revealLetters(userLetter)
 //      } else {
 //        hangman.bodyPartCount++;
 //      }
-//
+//    };
 //   });
-// });
+});
