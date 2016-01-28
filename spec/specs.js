@@ -1,5 +1,5 @@
 var testGame = new Game();
-
+  testGame.randomWord = "canada";
 
 describe('Game', function() {
   it("will have a property of a set word", function() {
@@ -15,7 +15,6 @@ describe('Game', function() {
   });
 
   it("will return true if letter is in word", function() {
-    // testGame.randomWord = "canada";
     expect(testGame.checkWord("a")).to.equal(true);
   });
 
@@ -26,4 +25,12 @@ describe('Game', function() {
   it("will return a '-' where the user letter matches randomWord", function() {
     expect(testGame.revealLetters("a")).to.eql("-a-a-a");
   });
+
+  it("will return true if bodyPartcount is 6 or higher", function() {
+    expect(testGame.gameOverCheck(6)).to.equal(true);
+  });
+
+  it("will return true if bodyPartcount is less than 6", function() {
+    expect(testGame.gameOverCheck(0)).to.equal(false);
+  })
 });

@@ -1,13 +1,14 @@
 function Game() {
-  this.randomWord = "canada"; //this.genRandWord();
-  this.hiddenWord = [];
+  this.randomWord = []; //this.genRandWord();
+  this.hiddenWord = []; //this.genHiddenWord();
+  this.bodyPartCount = 0;
 
 }
 
 Game.prototype.genRandWord = function () {
   var words = ["rooster", "cow", "bobsled", "why", "qat", "saucer", "gnome", "potato", "summer", "staple"];
     var randomWord = words[Math.floor(Math.random() * 10)];
-    console.log(randomWord);
+    console.log("Hi from genRandWord " + randomWord);
   return randomWord;
 };
 
@@ -15,7 +16,7 @@ Game.prototype.genHiddenWord = function () {
   for(var i = 0; i < this.randomWord.length; i++) {
     this.hiddenWord.push("-");
   };
-  console.log("Hi from genHiddenWord func" + this.hiddenWord);
+  console.log("Hi from genHiddenWord func " + this.hiddenWord);
   return this.hiddenWord;
 };
 
@@ -39,6 +40,13 @@ Game.prototype.revealLetters = function (userLetter) {
   return this.hiddenWord.join("");
 };
 
+Game.prototype.gameOverCheck = function (bodyPartCount) {
+  if(bodyPartCount >= 6) {
+    return true;
+  }
+  return false;
+};
+
 
 // $(function() {
 //
@@ -52,12 +60,12 @@ Game.prototype.revealLetters = function (userLetter) {
 //
 //     var userLetter = $(this).find("input#letter-input");
 //
-//     while(bodyPartcount < 6)
+//     while(!hangman.gameOverCheck)
 //      hangman.checkword(userLetter)
 //      if(hangman.checkWord()) {
 //        hangman.revealLetters(userLetter)
 //      } else {
-//        bodyPartcount++;
+//        hangman.bodyPartCount++;
 //      }
 //
 //   });
