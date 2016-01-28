@@ -37,13 +37,12 @@ Game.prototype.revealLetters = function (userLetter) {
       this.hiddenWord[i] = userLetter;
     }
   }
-  console.log("Hi from reveal letters" + this.hiddenWord + " " + this.randomWord);
+  console.log("Hi from reveal letters" + this.hiddenWord.join("") + " " + this.randomWord);
   return this.hiddenWord.join("");
 };
 
 Game.prototype.gameOverCheck = function () {
-  if(this.bodyPartCount >= 0) {
-
+  if(this.bodyPartCount >= 5) {
     return true;
   }
   return false;
@@ -61,20 +60,18 @@ $(function() {
     event.preventDefault();
 
     var userLetter = $("input#letter-input").val();
-    console.log("letter is " + userLetter);
 
     if(!hangman.gameOverCheck()) {
-     if(hangman.checkWord(userLetter)) {
+     if (hangman.hiddenWord.join("") === hangman.randomWord) {
+       $("#game-over-message").text("YOU WIN");
+     } else if (hangman.checkWord(userLetter)) {
        hangman.revealLetters(userLetter);
        $("#display-hidden-word").text(hangman.hiddenWord.join(""));
-
      } else {
        hangman.bodyPartCount++;
      };
      console.log("body part count is: " + hangman.bodyPartCount);
      $("input#letter-input").val("");
-   } else {
-     $("#game-over-message").text("GAME OVER DUDE");
-   };
-  });
+   } else $("#game-over-message").text("GAME OVER DUDE");
+ });
 });
