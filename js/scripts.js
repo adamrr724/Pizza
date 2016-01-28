@@ -41,8 +41,9 @@ Game.prototype.revealLetters = function (userLetter) {
   return this.hiddenWord.join("");
 };
 
-Game.prototype.gameOverCheck = function (bodyPartCount) {
-  if(bodyPartCount >= 6) {
+Game.prototype.gameOverCheck = function () {
+  if(this.bodyPartCount >= 0) {
+
     return true;
   }
   return false;
@@ -56,18 +57,24 @@ $(function() {
   $("#display-hidden-word").append(hangman.hiddenWord);
 
 
-//   $("form#user-input").submit(function(event) {
-//     event.preventDefault();
-//
-//     var userLetter = $(this).find("input#letter-input");
-//
-//     while(!hangman.gameOverCheck) {
-//      hangman.checkword(userLetter)
-//      if(hangman.checkWord()) {
-//        hangman.revealLetters(userLetter)
-//      } else {
-//        hangman.bodyPartCount++;
-//      }
-//    };
-//   });
+  $("form#user-input").submit(function(event) {
+    event.preventDefault();
+
+    var userLetter = $("input#letter-input").val();
+    console.log("letter is " + userLetter);
+
+    if(!hangman.gameOverCheck()) {
+     if(hangman.checkWord(userLetter)) {
+       hangman.revealLetters(userLetter);
+       $("#display-hidden-word").text(hangman.hiddenWord.join(""));
+
+     } else {
+       hangman.bodyPartCount++;
+     };
+     console.log("body part count is: " + hangman.bodyPartCount);
+     $("input#letter-input").val("");
+   } else {
+     $("#game-over-message").text("GAME OVER DUDE");
+   };
+  });
 });
